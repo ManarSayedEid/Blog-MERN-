@@ -5,9 +5,11 @@ const app = express();
 
 connectDB();
 
-// app.get("/", (req, res) => {
-//   res.send("yes");
-// });
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("yes");
+});
 
 require("./models/User");
 
