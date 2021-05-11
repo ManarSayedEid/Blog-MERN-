@@ -10,9 +10,11 @@ export const register = ({ username, email, password, gender }) => async (
       type: "REGISTER_SUCCESS",
       payload: res.data,
     });
+    alert("registered successfully");
+    console.log(res.data);
   } catch (error) {
     const errors = error.response.data.errors;
-    errors.map((error) => alert(error.msg));
+    errors.forEach((error) => alert(error.msg));
 
     dispatch({
       type: "REGISTER_FAIL",

@@ -10,6 +10,7 @@ import Register from "./components/Register";
 const { default: Navbar } = require("./components/Navbar");
 
 function App() {
+  console.log(store);
   return (
     <Provider store={store}>
       <BrowserRouter>
