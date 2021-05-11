@@ -1,0 +1,34 @@
+nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  h1 {
+    font-family: cursive;
+    color: rgb(134, 35, 68);
+
+    &:hover {
+      color: rgb(235, 152, 180);
+      cursor: pointer;
+    }
+  }
+
+  div {
+    margin: 0.5rem;
+    font-size: 1.1rem;
+    a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        color: rgb(235, 152, 180);
+        font-weight: bold;
+      }
+    }
+  }
+}
