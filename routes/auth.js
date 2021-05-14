@@ -59,7 +59,6 @@ router.post(
       console.error(error.message);
       res.status(500).send("server error");
     }
-
     console.log(req.body);
   }
 );

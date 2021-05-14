@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // image
 // import registerImg from "../img/registerImg.jpg";
@@ -18,12 +18,7 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const userData = { username, email, password, gender };
-
-    // console.log(userData);
-
     props.register({ username, email, password, gender });
-
     // fetch("/api/users/register", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
@@ -32,6 +27,12 @@ const Register = (props) => {
     //   .then((res) => res.json())
     //   .then((data) => console.log(data));
   };
+
+  // use history hook to go to profile (clear login - register to make logout)
+  const history = useHistory();
+  if (props.isLogged) {
+    history.push("/profile");
+  }
 
   return (
     <div className="register">
@@ -88,4 +89,10 @@ const Register = (props) => {
   );
 };
 
-export default connect(null, { register })(Register);
+const mapStateToProps = (state) => {
+  return {
+    isLogged: state.Auth.isLogged,
+  };
+};
+
+export default connect(mapStateToProps, { register })(Register);

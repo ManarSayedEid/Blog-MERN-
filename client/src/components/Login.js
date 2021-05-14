@@ -1,16 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+//redux
+import { connect } from "react-redux";
+//ation
+import { login } from "../actions/auth";
 
-const Login = () => {
+import { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = { email, password };
+    // const userData = { email, password };
 
-    console.log(userData);
+    // console.log(userData);
+    await props.login({ email, password });
   };
+
+  // use history hook to go to profile (clear login - register to make logout)
+  const history = useHistory();
+  if (props.isLogged) {
+    history.push("/profile");
+  }
+
   return (
     <div className="login">
       <form onSubmit={handleSubmit}>
@@ -44,4 +57,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isLogged: state.Auth.isLogged,
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);
