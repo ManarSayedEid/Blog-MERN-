@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 // image
 // import registerImg from "../img/registerImg.jpg";
@@ -29,9 +29,10 @@ const Register = (props) => {
   };
 
   // use history hook to go to profile (clear login - register to make logout)
-  const history = useHistory();
+  // const history = useHistory();
   if (props.isLogged) {
-    history.push("/profile");
+    <Redirect to="/profile" />;
+    // history.push("/profile");
   }
 
   return (

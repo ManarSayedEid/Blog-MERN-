@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 //ation
 import { login } from "../actions/auth";
 
-import { useState } from "react";
+import { useState, Redirect } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 const Login = (props) => {
@@ -22,6 +22,7 @@ const Login = (props) => {
   const history = useHistory();
   if (props.isLogged) {
     history.push("/profile");
+    // <Redirect to="/profile" />;
   }
 
   return (

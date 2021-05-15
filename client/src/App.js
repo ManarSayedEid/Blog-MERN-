@@ -11,8 +11,8 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/profile";
-
-const { default: Navbar } = require("./components/Navbar");
+import Navbar from "./components/Navbar";
+import { getProfile } from "./actions/profile";
 
 function App() {
   // console.log(store);
@@ -20,6 +20,7 @@ function App() {
   // only the first time loading the page
   useEffect(() => {
     store.dispatch(UserLoaded());
+    store.dispatch(getProfile());
   }, []);
 
   return (

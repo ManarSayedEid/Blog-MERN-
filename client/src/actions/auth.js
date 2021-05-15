@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { getProfile } from "./profile";
+
 export const UserLoaded = () => async (dispatch) => {
   try {
     const res = await axios.get("api/auth", {
@@ -38,6 +40,7 @@ export const register =
 
       // after getting token -> get the user profile
       dispatch(UserLoaded());
+      dispatch(getProfile());
     } catch (error) {
       console.log(error.response.data);
       const errors = error.response.data.errors;
@@ -64,6 +67,7 @@ export const login =
       console.log(res.data);
       // after getting token -> get the user profile
       dispatch(UserLoaded());
+      dispatch(getProfile());
     } catch (error) {
       console.log(error.response.data);
       const errors = error.response.data.errors;

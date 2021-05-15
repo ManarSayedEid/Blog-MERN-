@@ -11,14 +11,21 @@ const User = require("../models/User");
 
 // get user profile
 router.get("/me", auth, async (req, res) => {
-  const profile = await Profile.findOne({ user: req.userId }).populate(
-    "user",
-    "username"
-  );
-  if (!profile) {
-    return res.status(400).json({ msg: "Profile not found" });
+  try {
+    let profile = await Profile.findOne({ user: req.userId });
+
+    if (!profile) {
+      profile = await Profile.create({ user: req.userId });
+      profile = await Profile.findOne({ user: req.userId }).populate("user", [
+        "username",
+        "email",
+      ]);
+    }
+    res.json(profile);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Something went wrong!" });
   }
-  res.json(profile);
 });
 
 // create or update pofile
@@ -39,18 +46,18 @@ router.post("/", auth, async (req, res) => {
 
   try {
     // check if it update or create
-    let profile = await Profile.findOne({ user: req.userId });
+    // let profile = await Profile.findOne({ user: req.userId });
 
-    if (profile) {
-      profile = await Profile.findOneAndUpdate(
-        { user: req.userId },
-        { $set: profileField },
-        { new: true }
-      );
-      return res.json(profile);
-    }
+    // if (profile) {
+    profile = await Profile.findOneAndUpdate(
+      { user: req.userId },
+      { $set: profileField },
+      { new: true }
+    );
+    return res.json(profile);
+    // }
 
-    profile = await Profile.create(profileField);
+    // profile = await Profile.create(profileField);
     res.json(profile);
   } catch (error) {
     console.log(error.message);
