@@ -71,7 +71,12 @@ export const login =
     } catch (error) {
       console.log(error.response.data);
       const errors = error.response.data.errors;
-      errors.forEach((error) => alert(error.msg));
+      if (errors) {
+        errors.forEach((error) => alert(error.msg));
+      } else {
+        console.log(error.response.statusText);
+        alert(error.response.statusText);
+      }
 
       dispatch({
         type: "LOGIN_FAIL",

@@ -33,14 +33,40 @@ router.get("/me", auth, async (req, res) => {
 router.post("/", auth, async (req, res) => {
   const { bio, facebook, linkedin, github } = req.body;
 
-  const profileField = {};
-  profileField.user = req.userId;
-  profileField.social = {};
+  let profile = await Profile.findOne({ user: req.userId });
 
-  if (bio) profileField.bio = bio;
-  if (facebook) profileField.social.facebook = facebook;
-  if (linkedin) profileField.social.linkedin = linkedin;
-  if (github) profileField.social.github = github;
+  const profileField = {
+    user: req.userId,
+    bio: bio ? bio : profile.bio,
+    social: profile.social
+      ? {
+          facebook: facebook ? facebook : profile.social.facebook,
+          linkedin: linkedin ? linkedin : profile.social.facebook,
+          github: github ? github : profile.social.facebook,
+        }
+      : {
+          facebook: facebook ? facebook : "",
+          linkedin: linkedin ? linkedin : "",
+          github: github ? github : "",
+        },
+  };
+
+  // const profileField = {};
+  // profileField.user = req.userId;
+  // profileField.social = {};
+
+  // if (bio) {
+  //   profileField.bio = bio;
+  // }
+  // if (facebook) {
+  //   profileField.social.facebook = facebook;
+  // }
+  // if (linkedin) {
+  //   profileField.social.linkedin = linkedin;
+  // }
+  // if (github) {
+  //   profileField.social.github = github;
+  // }
 
   console.log(profileField);
 
@@ -54,7 +80,6 @@ router.post("/", auth, async (req, res) => {
       { $set: profileField },
       { new: true }
     );
-    return res.json(profile);
     // }
 
     // profile = await Profile.create(profileField);

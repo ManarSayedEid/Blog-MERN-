@@ -7492,8 +7492,21 @@ nav {
         color: #eb98b4;
         font-weight: bold; }
 
+.profile {
+  position: relative; }
+
+.modal {
+  position: fixed;
+  margin: 0 0px auto;
+  top: 1rem;
+  left: 20rem; }
+
+.hidden {
+  display: none; }
+
 .register,
-.login {
+.login,
+.profile__form {
   width: 90%; }
   .register label,
   .register input,
@@ -7502,14 +7515,20 @@ nav {
   .login label,
   .login input,
   .login button,
-  .login select {
+  .login select,
+  .profile__form label,
+  .profile__form input,
+  .profile__form button,
+  .profile__form select {
     display: block;
     padding: 0.3rem; }
   .register label,
-  .login label {
+  .login label,
+  .profile__form label {
     font-family: cursive; }
   .register button,
-  .login button {
+  .login button,
+  .profile__form button {
     margin-top: 2rem;
     padding: 0.5rem;
     border: none;
@@ -7519,8 +7538,10 @@ nav {
     font-family: cursive;
     cursor: pointer; }
   .register form,
-  .login form {
+  .login form,
+  .profile__form form {
     margin: 7rem; }
   .register img,
-  .login img {
+  .login img,
+  .profile__form img {
     margin-left: 0%; }

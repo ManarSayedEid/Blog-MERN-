@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 //ation
 import { login } from "../actions/auth";
 
-import { useState, Redirect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -19,10 +19,10 @@ const Login = (props) => {
   };
 
   // use history hook to go to profile (clear login - register to make logout)
-  const history = useHistory();
+  // const history = useHistory();
   if (props.isLogged) {
-    history.push("/profile");
-    // <Redirect to="/profile" />;
+    // history.push("/profile");
+    return <Redirect to="/profile" />;
   }
 
   return (
