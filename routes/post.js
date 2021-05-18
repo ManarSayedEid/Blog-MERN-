@@ -25,4 +25,29 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+// get all posts
+router.get("/", async (req, res) => {
+  try {
+    // sort to get latest posts
+    const posts = await Post.find().sort({ date: "desc" });
+    res.json(posts);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
+//delete post
+router.delete("/:id", async (req, res) => {
+  try {
+    // delete profile
+    await Post.findOneAndRemove({ _id: req.params.id });
+
+    res.json({ msg: "post deleted" });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
 module.exports = router;

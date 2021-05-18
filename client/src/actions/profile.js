@@ -14,7 +14,7 @@ export const getProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
 
     dispatch({
       type: "PROFILE_FAILED",
@@ -41,6 +41,29 @@ export const updateProfile = (body) => async (dispatch) => {
 
     dispatch({
       type: "PROFILE_FAILED",
+    });
+  }
+};
+
+export const deleteProfile = () => async (dispatch) => {
+  try {
+    await axios.delete("/api/profile", {
+      headers: {
+        authorization: localStorage.token,
+      },
+    });
+    // console.log(res.data);
+    dispatch({
+      type: "DELETE_PROFILE",
+    });
+    alert("profile deleted");
+    dispatch({
+      type: "LOGOUT",
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "DELETE_PROFILE_FAILED",
     });
   }
 };

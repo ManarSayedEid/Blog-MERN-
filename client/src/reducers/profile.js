@@ -9,6 +9,10 @@ const profile = (state = initial_state, action) => {
         ...state,
         profile: action.payload,
       };
+    case "DELETE_PROFILE":
+      return {
+        profile: null,
+      };
 
     case "PROFILE_FAILED":
     case "LOGOUT":

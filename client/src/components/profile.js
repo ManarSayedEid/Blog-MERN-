@@ -4,9 +4,10 @@ import Navbar from "./Navbar";
 //redux
 import { connect } from "react-redux";
 // action
-import { getProfile, updateProfile } from "../actions/profile";
+import { deleteProfile, getProfile, updateProfile } from "../actions/profile";
 import { useEffect, useState } from "react";
 import Spinner from "./spinner";
+import defaultImg from "../img/defaultImg.jpg";
 
 const Profile = ({
   isLogged,
@@ -14,6 +15,7 @@ const Profile = ({
   user,
   getProfile,
   updateProfile,
+  deleteProfile,
 }) => {
   const [bio, setBio] = useState("");
   const [facebook, setFacebook] = useState("");
@@ -21,6 +23,9 @@ const Profile = ({
   const [github, setGithub] = useState("");
 
   const [modal, toggleModal] = useState(false);
+
+  const [image, setImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     setBio(userProfile && userProfile.bio ? userProfile.bio : "");
@@ -41,19 +46,6 @@ const Profile = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const body = {};
-    // if (bio) {
-    //   body.bio = bio;
-    // }
-    // if (facebook) {
-    //   body.facebook = facebook;
-    // }
-    // if (linkedin) {
-    //   body.linkedin = linkedin;
-    // }
-    // if (github) {
-    //   body.github = github;
-    // }
     console.log({ bio, facebook, linkedin, github });
 
     await updateProfile({ bio, facebook, linkedin, github });
@@ -61,10 +53,29 @@ const Profile = ({
     await toggleModal(false);
   };
 
-  // const history = useHistory();
+  const handleUploadImg = async (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
+    console.log(previewImage);
+
+    const fData = new FormData();
+    image && fData.append("profile Image", image, "no");
+    console.log(fData);
+    console.log(image);
+
+    await updateProfile({ bio, facebook, linkedin, github, fData });
+    alert("Profile updated");
+    // post request to end point and send this form data
+    // await axios.post("api/users/img", fData, {
+    //   headers: {
+    //     authorization: localStorage.token,
+    //   },
+    // });
+  };
 
   if (!isLogged) {
-    // history.push("/login");
     return <Redirect to="/login" />;
   }
   console.log(userProfile);
@@ -83,7 +94,44 @@ const Profile = ({
                   modal ? "hidden profile__overview" : "profile__overview"
                 }
               >
+                {/* <img
+                  src={image ? image : defaultImg}
+                  alt="profile img"
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    borderRadius: "50%",
+                  }}
+                />
+                <input type="file" onChange={(e) => handleUploadImg(e)} /> */}
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleUploadImg(e)}
+                />
+                <label
+                  htmlFor="file"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <img
+                    src={image ? previewImage : defaultImg}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </label>
+
+                <div style={{ margin: "50px" }}></div>
                 <button onClick={() => toggleModal(true)}> Edit profile</button>
+                <button onClick={() => deleteProfile()}>Delete profile</button>
                 <h1>{user.username}</h1>
                 <h2>{user.email}</h2>
                 <h3>{user.gender}</h3>
@@ -98,14 +146,12 @@ const Profile = ({
                     userProfile.social.facebook !== "" &&
                     userProfile.social.facebook}
                 </h4>
-
                 <h4>
                   {userProfile !== undefined &&
                     userProfile.social !== undefined &&
                     userProfile.social.linkedin !== "" &&
                     userProfile.social.linkedin}
                 </h4>
-
                 <h4>
                   {userProfile !== undefined &&
                     userProfile.social !== undefined &&
@@ -175,4 +221,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getProfile, updateProfile })(Profile);
+export default connect(mapStateToProps, {
+  getProfile,
+  updateProfile,
+  deleteProfile,
+})(Profile);

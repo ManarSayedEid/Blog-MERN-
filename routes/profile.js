@@ -1,11 +1,25 @@
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
 
 const { body, validationResult } = require("express-validator");
 
 const auth = require("../middleware/auth");
+const Post = require("../models/post");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+// const Post = require("../models/Post");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 ////////////////////////////////// api/profile //////////////////////////////////
 
@@ -30,7 +44,8 @@ router.get("/me", auth, async (req, res) => {
 
 // create or update pofile
 
-router.post("/", auth, async (req, res) => {
+router.post("/", auth, upload.single("image"), async (req, res) => {
+  console.log(req.file);
   const { bio, facebook, linkedin, github } = req.body;
 
   let profile = await Profile.findOne({ user: req.userId });
@@ -49,6 +64,7 @@ router.post("/", auth, async (req, res) => {
           linkedin: linkedin ? linkedin : "",
           github: github ? github : "",
         },
+    image: req.file.path,
   };
 
   // const profileField = {};
@@ -68,7 +84,7 @@ router.post("/", auth, async (req, res) => {
   //   profileField.social.github = github;
   // }
 
-  console.log(profileField);
+  // console.log(profileField);
 
   try {
     // check if it update or create
@@ -131,11 +147,19 @@ router.delete("/", auth, async (req, res) => {
     // delete user
     await User.findOneAndRemove({ _id: req.userId });
 
+    //delete hos post
+    await Post.deleteMany({ user: req.userId });
+
     res.json({ msg: "user deleted" });
   } catch (error) {
     console.error(error.message);
     res.status(500).json("Server error");
   }
+});
+
+// /api/users/img
+router.post("/img", auth, upload.single("image"), async (req, res) => {
+  console.log("req.file");
 });
 
 module.exports = router;

@@ -7,6 +7,8 @@ connectDB();
 
 app.use(express.json());
 
+app.use(express.static("uploads"));
+
 app.get("/", (req, res) => {
   res.send("yes");
 });
