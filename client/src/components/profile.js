@@ -1,5 +1,6 @@
 import { Redirect } from "react-router";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 //redux
 import { connect } from "react-redux";
@@ -24,7 +25,6 @@ const Profile = ({
 
   const [modal, toggleModal] = useState(false);
 
-  const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
@@ -47,7 +47,6 @@ const Profile = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ bio, facebook, linkedin, github });
-
     await updateProfile({ bio, facebook, linkedin, github });
     alert("Profile updated");
     await toggleModal(false);
@@ -56,23 +55,33 @@ const Profile = ({
   const handleUploadImg = async (e) => {
     e.preventDefault();
     console.log(e.target.files[0]);
-    setImage(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
-    console.log(previewImage);
 
-    const fData = new FormData();
-    image && fData.append("profile Image", image, "no");
-    console.log(fData);
-    console.log(image);
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
 
-    await updateProfile({ bio, facebook, linkedin, github, fData });
-    alert("Profile updated");
+    fetch("api/users/img", {
+      method: "POST",
+      body: formData,
+      headers: {
+        authorization: localStorage.token,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
     // post request to end point and send this form data
-    // await axios.post("api/users/img", fData, {
+    // await axios.post("api/users/img", formData, {
     //   headers: {
     //     authorization: localStorage.token,
     //   },
     // });
+    alert("Image updated");
   };
 
   if (!isLogged) {
@@ -94,17 +103,6 @@ const Profile = ({
                   modal ? "hidden profile__overview" : "profile__overview"
                 }
               >
-                {/* <img
-                  src={image ? image : defaultImg}
-                  alt="profile img"
-                  style={{
-                    width: "200px",
-                    height: "200px",
-                    borderRadius: "50%",
-                  }}
-                />
-                <input type="file" onChange={(e) => handleUploadImg(e)} /> */}
-
                 <input
                   type="file"
                   accept="image/*"
@@ -119,19 +117,44 @@ const Profile = ({
                     cursor: "pointer",
                   }}
                 >
-                  <img
-                    src={image ? previewImage : defaultImg}
-                    style={{
-                      width: "200px",
-                      height: "200px",
-                      borderRadius: "50%",
-                    }}
-                  />
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <>
+                      {user.image ? (
+                        <img
+                          src={`http://localhost:4000/${user.image}`}
+                          style={{
+                            width: "200px",
+                            height: "200px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={defaultImg}
+                          style={{
+                            width: "200px",
+                            height: "200px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      )}
+                    </>
+                  )}
                 </label>
 
                 <div style={{ margin: "50px" }}></div>
                 <button onClick={() => toggleModal(true)}> Edit profile</button>
                 <button onClick={() => deleteProfile()}>Delete profile</button>
+
                 <h1>{user.username}</h1>
                 <h2>{user.email}</h2>
                 <h3>{user.gender}</h3>

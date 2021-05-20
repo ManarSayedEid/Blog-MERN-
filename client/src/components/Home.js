@@ -4,6 +4,7 @@ import Spinner from "./spinner";
 import { UserLoaded } from "../actions/auth";
 import { getProfile } from "../actions/profile";
 import { getPosts, deletePost, addPost } from "../actions/post";
+import defaultImg from "../img/defaultImg.jpg";
 
 import Moment from "react-moment";
 
@@ -33,6 +34,7 @@ const Home = ({
     e.preventDefault();
     console.log({ text });
     addPost({ text });
+    getPosts();
     setText("");
   };
   return (
@@ -56,6 +58,26 @@ const Home = ({
             {posts.map((post) => {
               return (
                 <div className="post" key={post._id}>
+                  {post.user.image ? (
+                    <img
+                      src={`http://localhost:4000/${post.user.image}`}
+                      style={{
+                        width: "3rem",
+                        height: "2rem",
+                        borderRadius: "5rem",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={defaultImg}
+                      style={{
+                        width: "3rem",
+                        height: "2rem",
+                        borderRadius: "5rem",
+                      }}
+                    />
+                  )}
+
                   <h3>{post.name}</h3>
                   <small>
                     <Moment format="YYYY/MM/DD">{post.date}</Moment>

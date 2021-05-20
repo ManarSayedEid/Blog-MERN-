@@ -12,7 +12,7 @@ const User = require("../models/User");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./uploads/");
+    cb(null, "./public/");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -44,8 +44,7 @@ router.get("/me", auth, async (req, res) => {
 
 // create or update pofile
 
-router.post("/", auth, upload.single("image"), async (req, res) => {
-  console.log(req.file);
+router.post("/", auth, async (req, res) => {
   const { bio, facebook, linkedin, github } = req.body;
 
   let profile = await Profile.findOne({ user: req.userId });
@@ -64,27 +63,8 @@ router.post("/", auth, upload.single("image"), async (req, res) => {
           linkedin: linkedin ? linkedin : "",
           github: github ? github : "",
         },
-    image: req.file.path,
+    // image: (req.file && req.file.path) || profile.image,
   };
-
-  // const profileField = {};
-  // profileField.user = req.userId;
-  // profileField.social = {};
-
-  // if (bio) {
-  //   profileField.bio = bio;
-  // }
-  // if (facebook) {
-  //   profileField.social.facebook = facebook;
-  // }
-  // if (linkedin) {
-  //   profileField.social.linkedin = linkedin;
-  // }
-  // if (github) {
-  //   profileField.social.github = github;
-  // }
-
-  // console.log(profileField);
 
   try {
     // check if it update or create

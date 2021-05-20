@@ -29,7 +29,9 @@ router.post("/", auth, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     // sort to get latest posts
-    const posts = await Post.find().sort({ date: "desc" });
+    const posts = await Post.find()
+      .sort({ date: "desc" })
+      .populate("user", ["image"]);
     res.json(posts);
   } catch (error) {
     console.log(error.message);

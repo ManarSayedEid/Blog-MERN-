@@ -1,22 +1,23 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const multer = require("multer");
+const multer = require("multer");
 const config = require("config");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const auth = require("../middleware/auth");
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "./uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-// const upload = multer({ storage });
+const upload = multer({ storage });
+
 const router = express.Router();
 
 router.post(
@@ -68,10 +69,19 @@ router.post(
 );
 
 // /api/users/img
-// router.post("/img", auth, upload.single("image"), async (req, res) => {
-//   let user = await User.findOne({ _id: req.userId });
+router.post("/img", auth, upload.single("image"), async (req, res) => {
+  console.log(req.file);
+  const img = {
+    image: (req.file && req.file.originalname) || null,
+  };
 
-//   console.log("req.file");
-//   res.json(user);
-// });
+  user = await User.findOneAndUpdate(
+    { _id: req.userId },
+    { $set: img },
+    { new: true }
+  );
+
+  console.log("hello from img");
+  res.json(user);
+});
 module.exports = router;
