@@ -22,9 +22,9 @@ const Navbar = ({ isLogged, logout }) => {
   return (
     <>
       <nav>
-        <Link to="/">
+        {/* <Link to="/">
           <h1>MANAR</h1>
-        </Link>
+        </Link> */}
 
         {isLogged ? loggedUser : guest}
       </nav>

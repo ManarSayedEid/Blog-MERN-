@@ -1,0 +1,63 @@
+.WriteNewPost {
+  form {
+    margin: 1.5rem;
+  }
+  input {
+    height: 3rem;
+    width: 50%;
+    outline: none;
+    border: 0.07rem solid #ccc;
+    padding: 1rem;
+    border-radius: 0.3rem;
+  }
+  button {
+    background-color: rgb(189, 91, 91);
+    font-family: cursive;
+    padding: 0.7rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    margin-left: 5rem;
+    color: white;
+    cursor: pointer;
+    margin: 2rem;
+  }
+}
+
+.post {
+  display: flex;
+  margin: 1.5rem;
+  font-family: cursive;
+  border: 0.07rem solid #ccc;
+  border-radius: 0.3rem;
+  img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    padding: 1rem;
+  }
+  h3 {
+    margin-top: 1.5rem;
+  }
+  small {
+    color: gray;
+  }
+  p {
+    margin: 0.8rem;
+  }
+
+  button {
+    background-color: rgb(189, 91, 91);
+    font-family: cursive;
+    padding: 0.7rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    margin-left: 5rem;
+    color: white;
+    cursor: pointer;
+    margin: 2rem;
+  }
+}

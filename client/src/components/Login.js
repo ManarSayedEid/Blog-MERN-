@@ -1,10 +1,11 @@
 //redux
 import { connect } from "react-redux";
 //ation
-import { login } from "../actions/auth";
+import { login, UserLoaded } from "../actions/auth";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { getProfile } from "../actions/profile";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -12,16 +13,14 @@ const Login = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const userData = { email, password };
-
-    // console.log(userData);
     await props.login({ email, password });
   };
 
-  // use history hook to go to profile (clear login - register to make logout)
-  // const history = useHistory();
+  useEffect(() => {
+    props.UserLoaded();
+  }, []);
+
   if (props.isLogged) {
-    // history.push("/profile");
     return <Redirect to="/profile" />;
   }
 
@@ -61,7 +60,8 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLogged: state.Auth.isLogged,
+    profile: state.profile.profile,
   };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, UserLoaded })(Login);

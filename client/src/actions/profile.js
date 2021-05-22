@@ -1,4 +1,8 @@
 import axios from "axios";
+import { UserLoaded } from "./auth";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const getProfile = () => async (dispatch) => {
   try {
@@ -36,6 +40,7 @@ export const updateProfile = (body) => async (dispatch) => {
       type: "PROFILE_LOADED",
       payload: res.data,
     });
+    toast.success("profile updated successfully");
   } catch (error) {
     console.log(error);
 
@@ -56,7 +61,8 @@ export const deleteProfile = () => async (dispatch) => {
     dispatch({
       type: "DELETE_PROFILE",
     });
-    alert("profile deleted");
+
+    toast.info("profile deleted");
     dispatch({
       type: "LOGOUT",
     });
@@ -66,4 +72,30 @@ export const deleteProfile = () => async (dispatch) => {
       type: "DELETE_PROFILE_FAILED",
     });
   }
+};
+
+export const uploadImg = (formData) => async (dispatch) => {
+  fetch("api/users/img", {
+    method: "POST",
+    body: formData,
+    headers: {
+      authorization: localStorage.token,
+    },
+  })
+    .then((response) => response.json())
+    .then((res) => {
+      console.log("Success:", res);
+      dispatch({
+        type: "IMG_LOADED",
+        payload: res.data,
+      });
+      dispatch(UserLoaded());
+
+      toast.success("Image updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+
+      toast.error("Image upload failed, Please try again");
+    });
 };

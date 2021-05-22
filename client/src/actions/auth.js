@@ -2,6 +2,9 @@ import axios from "axios";
 
 import { getProfile } from "./profile";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const UserLoaded = () => async (dispatch) => {
   try {
     const res = await axios.get("api/auth", {
@@ -35,7 +38,7 @@ export const register =
         type: "REGISTER_SUCCESS",
         payload: res.data,
       });
-      alert("registered successfully");
+      toast.success("registered successfully");
       console.log(res.data);
 
       // after getting token -> get the user profile
@@ -48,7 +51,8 @@ export const register =
         errors.forEach((error) => alert(error.msg));
       } else {
         console.log(error.response.statusText);
-        alert(error.response.statusText);
+        toast.error(error.response.statusText);
+        // alert();
       }
 
       dispatch({
@@ -68,7 +72,7 @@ export const login =
         payload: res.data,
       });
 
-      alert("log in successfully");
+      toast("Welcome back!");
       console.log(res.data);
       // after getting token -> get the user profile
       dispatch(UserLoaded());
@@ -80,7 +84,9 @@ export const login =
         errors.forEach((error) => alert(error.msg));
       } else {
         console.log(error.response.statusText);
-        alert(error.response.statusText);
+        toast.error(error.response.statusText);
+
+        // alert(error.response.statusText);
       }
 
       dispatch({

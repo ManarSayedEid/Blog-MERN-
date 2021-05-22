@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/profile";
 import Navbar from "./components/Navbar";
+import NotFound from "./components/Notfound";
 // import { getProfile } from "./actions/profile";
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
         </div>

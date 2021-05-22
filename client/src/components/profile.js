@@ -1,33 +1,52 @@
-import { Redirect } from "react-router";
-import Navbar from "./Navbar";
-import axios from "axios";
-
-//redux
-import { connect } from "react-redux";
-// action
-import { deleteProfile, getProfile, updateProfile } from "../actions/profile";
+// react
 import { useEffect, useState } from "react";
+import { Redirect } from "react-router";
+// images
 import Spinner from "./spinner";
 import defaultImg from "../img/defaultImg.jpg";
+//redux
+import { connect } from "react-redux";
+// actions
+import {
+  deleteProfile,
+  getProfile,
+  updateProfile,
+  uploadImg,
+} from "../actions/profile";
+//components
+import Navbar from "./Navbar";
+import { UserLoaded } from "../actions/auth";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Profile = ({
   isLogged,
   userProfile,
   user,
+  UserLoaded,
   getProfile,
   updateProfile,
   deleteProfile,
+  uploadImg,
 }) => {
   const [bio, setBio] = useState("");
   const [facebook, setFacebook] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
-
   const [modal, toggleModal] = useState(false);
-
   const [previewImage, setPreviewImage] = useState(null);
+  const [test, setTest] = useState(1);
 
   useEffect(() => {
+    // get profile after reload
+    if (test === 1) {
+      getProfile();
+      setTest(-1);
+    }
+    // getProfile();
+    console.log(userProfile);
+
     setBio(userProfile && userProfile.bio ? userProfile.bio : "");
     setFacebook(
       userProfile && userProfile.social?.facebook
@@ -48,7 +67,8 @@ const Profile = ({
     e.preventDefault();
     console.log({ bio, facebook, linkedin, github });
     await updateProfile({ bio, facebook, linkedin, github });
-    alert("Profile updated");
+    // toast("Profile updated");
+    // alert("");
     await toggleModal(false);
   };
 
@@ -59,39 +79,24 @@ const Profile = ({
 
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
-
-    fetch("api/users/img", {
-      method: "POST",
-      body: formData,
-      headers: {
-        authorization: localStorage.token,
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    // post request to end point and send this form data
-    // await axios.post("api/users/img", formData, {
-    //   headers: {
-    //     authorization: localStorage.token,
-    //   },
-    // });
-    alert("Image updated");
+    uploadImg(formData);
   };
 
+  // Make it private route
   if (!isLogged) {
     return <Redirect to="/login" />;
   }
-  console.log(userProfile);
-  console.log(user);
+  // console.log(userProfile);
+  // console.log(user);
+
+  // if (modal) {
+  //   document.body.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  // }
   return (
     <>
-      <div className="container">
+      <div>
+        <ToastContainer />
+
         <Navbar />
         {userProfile === null || user === null || isLogged === false ? (
           <Spinner />
@@ -100,129 +105,145 @@ const Profile = ({
             <div className="profile m-5">
               <div
                 className={
-                  modal ? "hidden profile__overview" : "profile__overview"
+                  modal ? "hidden profileOverview row" : "profileOverview row"
                 }
               >
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="image"
-                  id="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleUploadImg(e)}
-                />
-                <label
-                  htmlFor="file"
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {previewImage ? (
-                    <img
-                      src={previewImage}
-                      style={{
-                        width: "200px",
-                        height: "200px",
-                        borderRadius: "50%",
-                      }}
+                <div className="col-9">
+                  <div className="profileImg">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="image"
+                      id="file"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleUploadImg(e)}
                     />
-                  ) : (
-                    <>
-                      {user.image ? (
-                        <img
-                          src={`http://localhost:4000/${user.image}`}
-                          style={{
-                            width: "200px",
-                            height: "200px",
-                            borderRadius: "50%",
-                          }}
-                        />
+                    <label
+                      htmlFor="file"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      {previewImage ? (
+                        <img src={previewImage} alt="Preview" />
                       ) : (
-                        <img
-                          src={defaultImg}
-                          style={{
-                            width: "200px",
-                            height: "200px",
-                            borderRadius: "50%",
-                          }}
-                        />
+                        <>
+                          {user.image ? (
+                            <img
+                              src={`http://localhost:4000/${user.image}`}
+                              alt="User"
+                            />
+                          ) : (
+                            <img src={defaultImg} alt="default" />
+                          )}
+                        </>
                       )}
-                    </>
-                  )}
-                </label>
+                    </label>
+                  </div>
 
-                <div style={{ margin: "50px" }}></div>
-                <button onClick={() => toggleModal(true)}> Edit profile</button>
-                <button onClick={() => deleteProfile()}>Delete profile</button>
-
-                <h1>{user.username}</h1>
-                <h2>{user.email}</h2>
-                <h3>{user.gender}</h3>
-                <h4>
-                  {userProfile !== undefined &&
-                    userProfile.bio !== "" &&
-                    userProfile.bio}
-                </h4>
-                <h4>
-                  {userProfile !== undefined &&
-                    userProfile.social !== undefined &&
-                    userProfile.social.facebook !== "" &&
-                    userProfile.social.facebook}
-                </h4>
-                <h4>
-                  {userProfile !== undefined &&
-                    userProfile.social !== undefined &&
-                    userProfile.social.linkedin !== "" &&
-                    userProfile.social.linkedin}
-                </h4>
-                <h4>
-                  {userProfile !== undefined &&
-                    userProfile.social !== undefined &&
-                    userProfile.social.github !== "" &&
-                    userProfile.social.github}
-                </h4>
+                  <div className="profileData">
+                    <h1>
+                      {user && user.username} {"  "}
+                      <i className="fas fa-grin-beam-sweat"></i>
+                    </h1>
+                    {/* <h2>{user.email}</h2>
+                  <h3>{user.gender}</h3> */}
+                    <h4>
+                      {userProfile !== undefined &&
+                        userProfile.bio !== "" &&
+                        userProfile.bio}
+                    </h4>
+                    <span>
+                      {userProfile !== undefined &&
+                        userProfile.social !== undefined &&
+                        userProfile.social.facebook !== "" && (
+                          <a href={userProfile.social.facebook} target="blank">
+                            <i className="fab fa-facebook-square fa-lg"></i>
+                          </a>
+                        )}
+                    </span>
+                    <span>
+                      {userProfile !== undefined &&
+                        userProfile.social !== undefined &&
+                        userProfile.social.linkedin !== "" && (
+                          <a href={userProfile.social.linkedin} target="blank">
+                            <i className="fab fa-linkedin fa-lg"></i>
+                          </a>
+                        )}
+                    </span>
+                    <span>
+                      {userProfile !== undefined &&
+                        userProfile.social !== undefined &&
+                        userProfile.social.github !== "" && (
+                          <a href={userProfile.social.github} target="blank">
+                            <i className="fab fa-github fa-lg"></i>
+                          </a>
+                        )}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-3">
+                  <div className="ProfileManagement">
+                    <button onClick={() => toggleModal(true)} className="Edit">
+                      Edit profile
+                    </button>
+                    <button onClick={() => deleteProfile()} className="Delete">
+                      Delete profile
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Modal */}
               {modal && (
                 <>
                   <div className="modal">
-                    <div className="profile__form">
+                    <div className="profileEdit">
                       <form onSubmit={handleSubmit}>
-                        <label>bio:</label>
-                        <input
-                          type="text"
-                          value={bio}
-                          placeholder={bio}
-                          onChange={(e) => setBio(e.target.value)}
-                        />
+                        <div className="formGroup">
+                          <label>bio:</label>
+                          <input
+                            type="text"
+                            value={bio}
+                            placeholder={bio}
+                            onChange={(e) => setBio(e.target.value)}
+                          />
+                        </div>
+                        <div className="formGroup">
+                          <label>facebook:</label>
+                          <input
+                            type="text"
+                            value={facebook}
+                            placeholder={facebook}
+                            onChange={(e) => setFacebook(e.target.value)}
+                          />
+                        </div>
+                        <div className="formGroup">
+                          <label>linkedin:</label>
+                          <input
+                            type="text"
+                            value={linkedin}
+                            placeholder={linkedin}
+                            onChange={(e) => setLinkedin(e.target.value)}
+                          />
+                        </div>
+                        <div className="formGroup">
+                          <label>github:</label>
+                          <input
+                            type="text"
+                            value={github}
+                            placeholder={github}
+                            onChange={(e) => setGithub(e.target.value)}
+                          />
+                        </div>
 
-                        <label>facebook:</label>
-                        <input
-                          type="text"
-                          value={facebook}
-                          placeholder={facebook}
-                          onChange={(e) => setFacebook(e.target.value)}
-                        />
-
-                        <label>linkedin:</label>
-                        <input
-                          type="text"
-                          value={linkedin}
-                          placeholder={linkedin}
-                          onChange={(e) => setLinkedin(e.target.value)}
-                        />
-                        <label>github:</label>
-                        <input
-                          type="text"
-                          value={github}
-                          placeholder={github}
-                          onChange={(e) => setGithub(e.target.value)}
-                        />
-                        <button> Submit</button>
-                        <button onClick={() => toggleModal(false)}>
-                          Close
-                        </button>
+                        <div className="modalManagement">
+                          <button> Edit</button>
+                          {/* <input type="submit" value="Edit" /> */}
+                          <button onClick={() => toggleModal(false)}>
+                            Close
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </div>
@@ -248,4 +269,6 @@ export default connect(mapStateToProps, {
   getProfile,
   updateProfile,
   deleteProfile,
+  uploadImg,
+  UserLoaded,
 })(Profile);

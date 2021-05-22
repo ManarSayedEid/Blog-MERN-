@@ -1,4 +1,6 @@
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -24,7 +26,7 @@ export const deletePost = (id) => async (dispatch) => {
       type: "DELETE_POST",
       payload: id,
     });
-    alert("post deleted");
+    toast.warn("post deleted");
   } catch (error) {
     console.log(error);
     dispatch({
@@ -45,7 +47,7 @@ export const addPost = (body) => async (dispatch) => {
       type: "ADD_POST",
       payload: res.data,
     });
-    alert("post added");
+    toast.success("post added");
   } catch (error) {
     console.log(error);
     dispatch({

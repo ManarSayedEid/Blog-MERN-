@@ -23,9 +23,6 @@ const ProfileSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  image: {
-    type: String,
-  },
 });
 
 const Profile = mongoose.model("Profile", ProfileSchema);

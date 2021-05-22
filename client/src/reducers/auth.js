@@ -7,6 +7,7 @@ const initialState = {
 const Auth = (state = initialState, action) => {
   switch (action.type) {
     case "USER_lOADED":
+    case "IMG_LOADED":
       return {
         ...state,
         user: action.payload,

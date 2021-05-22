@@ -1,5 +1,5 @@
 /*!
- * Bootstrap Grid v5.0.0 (https://getbootstrap.com/)
+ * Bootstrap Grid v5.0.1 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -7470,9 +7470,11 @@ readers do not read off random characters that represent icons */
   padding: 0%; }
 
 nav {
+  background-color: #ffecec;
+  padding: 1rem;
   display: flex;
   justify-content: center;
-  margin-top: 1rem; }
+  font-family: cursive; }
   nav a {
     text-decoration: none; }
   nav h1 {
@@ -7489,8 +7491,9 @@ nav {
       text-decoration: none;
       color: black; }
       nav div a:hover {
-        color: #eb98b4;
-        font-weight: bold; }
+        color: #bd5b5b;
+        font-weight: bold;
+        font-size: large; }
 
 .profile {
   position: relative; }
@@ -7505,8 +7508,7 @@ nav {
   display: none; }
 
 .register,
-.login,
-.profile__form {
+.login {
   width: 90%; }
   .register label,
   .register input,
@@ -7515,20 +7517,14 @@ nav {
   .login label,
   .login input,
   .login button,
-  .login select,
-  .profile__form label,
-  .profile__form input,
-  .profile__form button,
-  .profile__form select {
+  .login select {
     display: block;
     padding: 0.3rem; }
   .register label,
-  .login label,
-  .profile__form label {
+  .login label {
     font-family: cursive; }
   .register button,
-  .login button,
-  .profile__form button {
+  .login button {
     margin-top: 2rem;
     padding: 0.5rem;
     border: none;
@@ -7538,10 +7534,123 @@ nav {
     font-family: cursive;
     cursor: pointer; }
   .register form,
-  .login form,
-  .profile__form form {
+  .login form {
     margin: 7rem; }
   .register img,
-  .login img,
-  .profile__form img {
+  .login img {
     margin-left: 0%; }
+
+.profile {
+  text-align: center; }
+  .profile .profileImg img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    padding: 1rem; }
+  .profile .profileData {
+    font-family: cursive; }
+    .profile .profileData h1 {
+      margin-bottom: 1.5rem; }
+    .profile .profileData h4 {
+      font-family: "Courier New", Courier, monospace;
+      margin-bottom: 0.3rem; }
+    .profile .profileData span i {
+      height: 2rem;
+      width: 2rem;
+      margin: 0.2rem; }
+  .profile .ProfileManagement button {
+    background-color: #bd5b5b;
+    font-family: cursive;
+    padding: 0.6rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    margin: 1.5rem;
+    display: block;
+    color: white;
+    cursor: pointer; }
+
+.modal .profileEdit {
+  display: block;
+  text-align: center;
+  margin: 7.5rem auto;
+  font-family: cursive;
+  border: 0.07rem solid #ccc;
+  border-radius: 3rem; }
+  .modal .profileEdit .formGroup {
+    width: 50rem; }
+    .modal .profileEdit .formGroup label {
+      padding: 1.6rem; }
+    .modal .profileEdit .formGroup input {
+      border: 0;
+      padding: 1rem 0;
+      border-bottom: 0.07rem solid #ccc;
+      width: 30rem;
+      outline: none; }
+  .modal .profileEdit .modalManagement button {
+    background-color: #bd5b5b;
+    font-family: cursive;
+    padding: 0.6rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    margin: 1rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 2rem; }
+
+.WriteNewPost form {
+  margin: 1.5rem; }
+
+.WriteNewPost input {
+  height: 3rem;
+  width: 50%;
+  outline: none;
+  border: 0.07rem solid #ccc;
+  padding: 1rem;
+  border-radius: 0.3rem; }
+
+.WriteNewPost button {
+  background-color: #bd5b5b;
+  font-family: cursive;
+  padding: 0.7rem;
+  text-align: center;
+  outline: none;
+  border-radius: 0.5rem;
+  border: none;
+  margin-left: 5rem;
+  color: white;
+  cursor: pointer;
+  margin: 2rem; }
+
+.post {
+  display: flex;
+  margin: 1.5rem;
+  font-family: cursive;
+  border: 0.07rem solid #ccc;
+  border-radius: 0.3rem; }
+  .post img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    padding: 1rem; }
+  .post h3 {
+    margin-top: 1.5rem; }
+  .post small {
+    color: gray; }
+  .post p {
+    margin: 0.8rem; }
+  .post button {
+    background-color: #bd5b5b;
+    font-family: cursive;
+    padding: 0.7rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    margin-left: 5rem;
+    color: white;
+    cursor: pointer;
+    margin: 2rem; }

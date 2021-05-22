@@ -1,7 +1,9 @@
 nav {
+  background-color: rgb(255, 236, 236);
+  padding: 1rem;
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  font-family: cursive;
 
   a {
     text-decoration: none;
@@ -26,8 +28,9 @@ nav {
       color: black;
 
       &:hover {
-        color: rgb(235, 152, 180);
+        color: rgb(189, 91, 91);
         font-weight: bold;
+        font-size: large;
       }
     }
   }

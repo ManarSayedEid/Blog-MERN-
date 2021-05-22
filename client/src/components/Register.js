@@ -19,13 +19,6 @@ const Register = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.register({ username, email, password, gender });
-    // fetch("/api/users/register", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(userData),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data));
   };
 
   // use history hook to go to profile (clear login - register to make logout)
