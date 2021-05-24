@@ -16,6 +16,13 @@ const post = (state = initialState, action) => {
         ...state,
         posts: [payload, ...state.posts],
       };
+    case "LIKE_STATUS":
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === payload.postId ? { ...post, likes: payload.likes } : post
+        ),
+      };
 
     case "POSTS_ERROR":
       return {

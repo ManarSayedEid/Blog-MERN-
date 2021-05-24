@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { UserLoaded } from "../actions/auth";
 import { getProfile } from "../actions/profile";
-import { getPosts, deletePost, addPost } from "../actions/post";
+import { getPosts, deletePost, addPost, toggleLike } from "../actions/post";
 import defaultImg from "../img/defaultImg.jpg";
 import Spinner from "./spinner";
 
@@ -14,6 +14,7 @@ const Home = ({
   getPosts,
   addPost,
   deletePost,
+  toggleLike,
   posts: { posts },
   user,
   isLogged,
@@ -75,6 +76,17 @@ const Home = ({
                     </small>
                     <p>{post.text}</p>
 
+                    {user && (
+                      <>
+                        <span onClick={() => toggleLike(post._id)}>
+                          <i className="fas fa-heart"></i>{" "}
+                        </span>
+                        <span>
+                          {post.likes.length > 0 ? post.likes.length : ""}
+                        </span>
+                      </>
+                    )}
+
                     {user && user._id === post.user._id && (
                       <button onClick={() => deletePost(post._id)}>
                         delete post
@@ -103,4 +115,5 @@ export default connect(mapStateToProps, {
   getProfile,
   getPosts,
   addPost,
+  toggleLike,
 })(Home);

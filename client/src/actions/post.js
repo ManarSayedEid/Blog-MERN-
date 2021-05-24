@@ -55,3 +55,27 @@ export const addPost = (body) => async (dispatch) => {
     });
   }
 };
+
+export const toggleLike = (postId) => async (dispatch) => {
+  try {
+    const res = await axios.put(
+      `/api/posts/likes/${postId}`,
+      {},
+      {
+        headers: {
+          authorization: localStorage.token,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch({
+      type: "LIKE_STATUS",
+      payload: { postId, likes: res.data },
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "POSTS_ERROR",
+    });
+  }
+};

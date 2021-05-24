@@ -52,4 +52,59 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//like - unlike a post
+router.put("/likes/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    const isLiked = post.likes.filter(
+      (like) => like.user.toString() === req.userId
+    );
+    console.log(isLiked);
+
+    if (isLiked.length > 0) {
+      post.likes.forEach(async (like, index) => {
+        console.log("like", like);
+        console.log("index", index);
+        if (like.user.toString() === req.userId) {
+          post.likes.splice(index, 1);
+          await post.save();
+        }
+      });
+      res.json(post.likes);
+      // res.json({ likes: post.likes, status: "unlike" });
+      // return res.status(400).json({ msg: "Post already liked" });
+    } else {
+      post.likes.push({ user: req.userId });
+      await post.save();
+      // res.json({ likes: post.likes, status: "like" });
+      res.json(post.likes);
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
+// //Know like state for every post
+router.put("/likes/status/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    const isLiked = post.likes.filter(
+      (like) => like.user.toString() === req.userId
+    );
+    console.log(isLiked);
+
+    if (isLiked.length > 0) {
+      res.json({ status: "unlike" });
+    } else {
+      res.json({ status: "like" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
 module.exports = router;
