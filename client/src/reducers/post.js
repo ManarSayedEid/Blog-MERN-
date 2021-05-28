@@ -16,6 +16,26 @@ const post = (state = initialState, action) => {
         ...state,
         posts: [payload, ...state.posts],
       };
+    case "ADD_COMMENT":
+      return {
+        ...state,
+        post: { ...state.post, comments: payload },
+      };
+    case "DELETE_COMMENT":
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            (comment) => comment._id !== payload
+          ),
+        },
+      };
+    case "GET_POST":
+      return {
+        ...state,
+        post: payload,
+      };
     case "LIKE_STATUS":
       return {
         ...state,

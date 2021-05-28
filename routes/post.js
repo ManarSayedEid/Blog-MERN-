@@ -39,6 +39,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get single post
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate("user", ["image"]);
+    res.json(post);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
 //delete post
 router.delete("/:id", async (req, res) => {
   try {

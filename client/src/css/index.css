@@ -7475,20 +7475,20 @@ nav {
   color: white;
   font-size: 1.1rem; }
   nav .logout {
-    background-color: #630707; }
+    background-color: #194350; }
   nav .profile {
-    background-color: #092c09; }
+    background-color: #194350; }
   nav .home {
-    background-color: #074150; }
+    background-color: #194350; }
   nav a {
     display: block;
     margin-bottom: 1rem;
     text-decoration: none;
     color: white;
-    background-color: #bd5b5b;
     padding: 0.5rem;
     border-bottom-right-radius: 0.3rem;
-    border-top-right-radius: 0.3rem; }
+    border-top-right-radius: 0.3rem;
+    background-color: #194350; }
     nav a:hover {
       opacity: 0.8; }
 
@@ -7574,7 +7574,8 @@ nav {
   margin: 7.5rem auto;
   font-family: cursive;
   border: 0.07rem solid #ccc;
-  border-radius: 3rem; }
+  border-radius: 3rem;
+  background-color: white; }
   .modal .profileEdit .formGroup {
     width: 50rem; }
     .modal .profileEdit .formGroup label {
@@ -7598,10 +7599,12 @@ nav {
     cursor: pointer;
     margin-top: 2rem; }
 
-.WriteNewPost form {
+.WriteNewPost form,
+.PostComment form {
   margin: 1.5rem; }
 
-.WriteNewPost input {
+.WriteNewPost input,
+.PostComment input {
   height: 3rem;
   width: 50%;
   outline: none;
@@ -7609,7 +7612,8 @@ nav {
   padding: 1rem;
   border-radius: 0.3rem; }
 
-.WriteNewPost button {
+.WriteNewPost button,
+.PostComment button {
   background-color: #bd5b5b;
   font-family: cursive;
   padding: 0.7rem;
@@ -7626,8 +7630,8 @@ nav {
   display: flex;
   margin: 1.5rem;
   font-family: cursive;
-  border: 0.07rem solid #ccc;
   border-radius: 0.3rem;
+  box-shadow: 0 0.07 0 0.07 #ccc;
   background-color: white; }
   .post img {
     width: 10rem;
@@ -7652,3 +7656,47 @@ nav {
     color: white;
     cursor: pointer;
     margin: 2rem; }
+
+.posts button {
+  background-color: #bd5b5b;
+  font-family: cursive;
+  padding: 0.7rem;
+  text-align: center;
+  outline: none;
+  border-radius: 0.5rem;
+  border: none;
+  margin-left: 5rem;
+  color: white;
+  cursor: pointer;
+  margin: 2rem; }
+
+.comment {
+  display: flex;
+  margin: 1.5rem;
+  font-family: cursive;
+  border-radius: 0.3rem;
+  box-shadow: 0 1 0 1 #ccc;
+  background-color: white; }
+  .comment img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 30%;
+    padding: 1rem; }
+  .comment h3 {
+    margin-top: 0.7rem; }
+  .comment small {
+    color: gray; }
+  .comment p {
+    margin: 0.4rem; }
+  .comment button {
+    background-color: white;
+    font-family: cursive;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    color: #bd5b5b;
+    font-size: large;
+    cursor: pointer; }
+
+body {
+  background-color: #c0c9d8; }

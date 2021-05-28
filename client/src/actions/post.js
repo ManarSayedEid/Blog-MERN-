@@ -18,6 +18,22 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+export const getPost = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/posts/${id}`);
+    console.log(res.data);
+    dispatch({
+      type: "GET_POST",
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "POSTS_ERROR",
+    });
+  }
+};
+
 export const deletePost = (id) => async (dispatch) => {
   try {
     await axios.delete("/api/posts/" + id);
@@ -72,6 +88,47 @@ export const toggleLike = (postId) => async (dispatch) => {
       type: "LIKE_STATUS",
       payload: { postId, likes: res.data },
     });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "POSTS_ERROR",
+    });
+  }
+};
+
+export const addComment = (id, text) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/posts/comment/${id}`, text, {
+      headers: {
+        authorization: localStorage.token,
+      },
+    });
+    console.log(res.data);
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: res.data,
+    });
+    // toast.success("post added");
+    alert("comment added");
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "POSTS_ERROR",
+    });
+  }
+};
+
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+
+    // console.log(res.data);
+    dispatch({
+      type: "DELETE_COMMENT",
+      payload: commentId,
+    });
+    // toast.success("post added");
+    alert("comment deleted");
   } catch (error) {
     console.log(error);
     dispatch({

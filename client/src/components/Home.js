@@ -5,6 +5,7 @@ import { getProfile } from "../actions/profile";
 import { getPosts, deletePost, addPost, toggleLike } from "../actions/post";
 import defaultImg from "../img/defaultImg.jpg";
 import Spinner from "./spinner";
+import { Link } from "react-router-dom";
 
 import Moment from "react-moment";
 
@@ -75,18 +76,32 @@ const Home = ({
                       <Moment format="YYYY/MM/DD">{post.date}</Moment>
                     </small>
                     <p>{post.text}</p>
+                    {/* {user && ( */}
+                    <>
+                      <span
+                        onClick={() => toggleLike(post._id)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <i className="fas fa-heart"></i>{" "}
+                      </span>
+                      <span>
+                        {post.likes.length > 0 ? post.likes.length : ""}
+                      </span>
+                    </>
+                    {"    "}
 
-                    {user && (
-                      <>
-                        <span onClick={() => toggleLike(post._id)}>
-                          <i className="fas fa-heart"></i>{" "}
-                        </span>
-                        <span>
-                          {post.likes.length > 0 ? post.likes.length : ""}
-                        </span>
-                      </>
-                    )}
-
+                    <Link
+                      to={`/post/${post._id}`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
+                      <span>
+                        <i className="fas fa-comment"></i>{" "}
+                      </span>
+                      <span>
+                        {post.comments.length > 0 ? post.comments.length : ""}
+                      </span>
+                    </Link>
+                    {/* )} */}
                     {user && user._id === post.user._id && (
                       <button onClick={() => deletePost(post._id)}>
                         <span>

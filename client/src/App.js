@@ -13,6 +13,8 @@ import Register from "./components/Register";
 import Profile from "./components/profile";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/Notfound";
+import Post from "./components/post";
+
 // import { getProfile } from "./actions/profile";
 
 function App() {
@@ -41,6 +43,9 @@ function App() {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="/post/:id">
+              <Post />
             </Route>
             <Route path="*">
               <NotFound />
