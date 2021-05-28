@@ -128,14 +128,14 @@ const Profile = ({
                         <img src={previewImage} alt="Preview" />
                       ) : (
                         <>
-                          {user.image ? (
-                            <img
-                              src={`http://localhost:4000/${user.image}`}
-                              alt="User"
-                            />
-                          ) : (
-                            <img src={defaultImg} alt="default" />
-                          )}
+                          {/* {user.image ? ( */}
+                          <img
+                            src={`http://localhost:4000/${user.image}`}
+                            alt="User"
+                          />
+                          {/* // ) : (
+                          //   <img src={defaultImg} alt="default" />
+                          // )} */}
                         </>
                       )}
                     </label>

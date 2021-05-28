@@ -53,7 +53,7 @@ const Home = ({
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Share Your thoughts"
                   ></input>
-                  <button>submit</button>
+                  <button>Post</button>
                 </form>
               </div>
             )}
@@ -89,7 +89,9 @@ const Home = ({
 
                     {user && user._id === post.user._id && (
                       <button onClick={() => deletePost(post._id)}>
-                        delete post
+                        <span>
+                          <i className="fas fa-trash"></i> Delete
+                        </span>
                       </button>
                     )}
                   </div>

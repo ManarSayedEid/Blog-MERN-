@@ -12,9 +12,13 @@ const Navbar = ({ isLogged, logout }) => {
   );
   const loggedUser = (
     <div>
-      <Link to="/">Home</Link>
-      <Link to="/profile">Profile</Link>
-      <Link to="/" onClick={() => logout()}>
+      <Link to="/" className="home">
+        Home
+      </Link>
+      <Link to="/profile" className="profile">
+        Profile
+      </Link>
+      <Link to="/" onClick={() => logout()} className="logout">
         Logout
       </Link>
     </div>

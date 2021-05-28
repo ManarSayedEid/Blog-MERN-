@@ -87,20 +87,74 @@ router.put("/likes/:id", auth, async (req, res) => {
 });
 
 // //Know like state for every post
-router.put("/likes/status/:id", auth, async (req, res) => {
+// router.put("/likes/status/:id", auth, async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     const isLiked = post.likes.filter(
+//       (like) => like.user.toString() === req.userId
+//     );
+//     console.log(isLiked);
+
+//     if (isLiked.length > 0) {
+//       res.json({ status: "unlike" });
+//     } else {
+//       res.json({ status: "like" });
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//     return res.status(404).json({ msg: "Server error" });
+//   }
+// });
+
+// add comment
+router.post("/comment/:id", auth, async (req, res) => {
+  const { text } = req.body;
+
   try {
+    const id = req.userId;
+
+    const user = await User.findById(id).select("-password");
     const post = await Post.findById(req.params.id);
 
-    const isLiked = post.likes.filter(
-      (like) => like.user.toString() === req.userId
-    );
-    console.log(isLiked);
+    const comment = {
+      user: id,
+      image: user.image,
+      name: user.username,
+      text: text,
+    };
 
-    if (isLiked.length > 0) {
-      res.json({ status: "unlike" });
-    } else {
-      res.json({ status: "like" });
-    }
+    post.comments.push(comment);
+    await post.save();
+
+    console.log(post);
+    res.json(post.comments);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json({ msg: "Server error" });
+  }
+});
+
+// delete comment (will protect it from frontend ( too lazy))
+router.delete("/comment/:postId/:commentId", async (req, res) => {
+  try {
+    const id = req.userId;
+    const post = await Post.findById(req.params.postId);
+
+    post.comments.forEach(async (comment, index) => {
+      console.log("comment", comment);
+      console.log("index", index);
+      console.log(comment._id);
+      console.log(req.params.commentId);
+
+      if (comment._id.toString() === req.params.commentId) {
+        post.comments.splice(index, 1);
+        await post.save();
+      }
+    });
+
+    console.log("deleted");
+    res.json(post.comments);
   } catch (error) {
     console.log(error.message);
     return res.status(404).json({ msg: "Server error" });

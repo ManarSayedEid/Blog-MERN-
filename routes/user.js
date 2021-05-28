@@ -54,6 +54,7 @@ router.post(
         email,
         gender,
         password: HashedPassword,
+        image: "defaultImg.jpg",
       });
 
       const token = await jwt.sign({ id: user.id }, config.get("jwtSecret"));
@@ -72,7 +73,7 @@ router.post(
 router.post("/img", auth, upload.single("image"), async (req, res) => {
   console.log(req.file);
   const img = {
-    image: (req.file && req.file.originalname) || null,
+    image: (req.file && req.file.originalname) || defaultImg.jpg,
   };
 
   user = await User.findOneAndUpdate(

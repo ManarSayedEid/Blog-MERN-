@@ -7474,6 +7474,12 @@ nav {
   position: fixed;
   color: white;
   font-size: 1.1rem; }
+  nav .logout {
+    background-color: #630707; }
+  nav .profile {
+    background-color: #092c09; }
+  nav .home {
+    background-color: #074150; }
   nav a {
     display: block;
     margin-bottom: 1rem;
@@ -7622,7 +7628,7 @@ nav {
   font-family: cursive;
   border: 0.07rem solid #ccc;
   border-radius: 0.3rem;
-  background-color: #f7cde5; }
+  background-color: white; }
   .post img {
     width: 10rem;
     height: 10rem;
