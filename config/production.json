@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://manarsayed:6cnRH5Rqfq1TYneY@blog.34zn6.mongodb.net/blogDB?retryWrites=true&w=majority",
+    "jwtSecret":"very stronggg password"
+}

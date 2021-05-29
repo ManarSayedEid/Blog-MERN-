@@ -64,17 +64,18 @@ const Post = ({ user, post: { post }, getPost, addComment, deleteComment }) => {
                 )}
               </div>
             ))}
-
-            <div className="PostComment">
-              <form onSubmit={handleSubmit}>
-                <input
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="add a comment"
-                ></input>
-                <button>Comment</button>
-              </form>
-            </div>
+            {user && (
+              <div className="PostComment">
+                <form onSubmit={handleSubmit}>
+                  <input
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    placeholder="add a comment"
+                  ></input>
+                  <button>Comment</button>
+                </form>
+              </div>
+            )}
           </div>
         </>
       )}
