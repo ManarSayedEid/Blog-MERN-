@@ -11,10 +11,6 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-// app.get("/", (req, res) => {
-//   res.send("yes");
-// });
-
 require("./models/User");
 
 app.use("/api/users", require("./routes/user"));
@@ -22,7 +18,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/profile", require("./routes/profile"));
 app.use("/api/posts", require("./routes/post"));
 
-if (process.env.Node_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
