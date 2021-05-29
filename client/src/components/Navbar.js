@@ -2,6 +2,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/auth";
 
+// img
+import bg from "../img/2.jpg";
+
 const Navbar = ({ isLogged, logout }) => {
   const guest = (
     <div>
@@ -25,13 +28,10 @@ const Navbar = ({ isLogged, logout }) => {
   );
   return (
     <>
-      <nav>
-        {/* <Link to="/">
-          <h1>MANAR</h1>
-        </Link> */}
-
-        {isLogged ? loggedUser : guest}
-      </nav>
+      <div className="nav">
+        <nav>{isLogged ? loggedUser : guest}</nav>
+        <img src={bg} alt="color" />
+      </div>
     </>
   );
 };

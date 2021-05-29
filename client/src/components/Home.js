@@ -71,7 +71,13 @@ const Home = ({
                     <img src={defaultImg} alt="default" />
                   )}
                   <div>
-                    <h3>{post.name}</h3>
+                    <Link
+                      to={`/profile/${post.user._id}`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
+                      <h3>{post.name}</h3>
+                    </Link>
+
                     <small>
                       <Moment format="YYYY/MM/DD">{post.date}</Moment>
                     </small>
@@ -92,7 +98,11 @@ const Home = ({
 
                     <Link
                       to={`/post/${post._id}`}
-                      style={{ color: "black", textDecoration: "none" }}
+                      style={{
+                        color: "black",
+                        textDecoration: "none",
+                        margin: "1rem",
+                      }}
                     >
                       <span>
                         <i className="fas fa-comment"></i>{" "}

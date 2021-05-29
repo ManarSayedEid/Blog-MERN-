@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/connection");
+const socket = require("socket.io");
 
 const app = express();
 
@@ -22,6 +23,12 @@ app.use("/api/posts", require("./routes/post"));
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server Listening on port ${PORT}`);
+});
+
+const io = socket(server);
+
+io.on("connection", (socket) => {
+  console.log("socket connected");
 });

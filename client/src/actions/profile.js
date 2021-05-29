@@ -99,3 +99,19 @@ export const uploadImg = (formData) => async (dispatch) => {
       toast.error("Image upload failed, Please try again");
     });
 };
+
+export const getProfiles = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/user/${id}`);
+    console.log(res.data);
+    dispatch({
+      type: "GET_PROFILES",
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "PROFILE_FAILED",
+    });
+  }
+};

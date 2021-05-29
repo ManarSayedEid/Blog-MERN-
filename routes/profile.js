@@ -102,10 +102,14 @@ router.get("/", async (req, res) => {
 // get diff user profile by id
 router.get("/user/:id", async (req, res) => {
   try {
-    const profile = await Profile.find({ user: req.params.id }).populate(
-      "user",
-      ["username"]
-    );
+    let profile = await Profile.find({ user: req.params.id }).populate("user", [
+      "username",
+      "image",
+    ]);
+
+    console.log(profile);
+    profile = profile[0];
+    console.log(profile);
 
     if (!profile) {
       return res.status(400).json({ msg: "Profile not found" });

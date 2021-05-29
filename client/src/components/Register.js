@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
-// image
-// import registerImg from "../img/registerImg.jpg";
-
 // action
 import { register } from "../actions/auth.js";
 
@@ -29,12 +26,18 @@ const Register = (props) => {
   }
 
   return (
-    <div className="register">
+    <div className="register ">
       <div className="row">
-        <div className="col">
+        <div className="col-12">
           <form onSubmit={handleSubmit}>
-            <Link to="/">
-              <h1>MANAR</h1>
+            <Link
+              to="/"
+              style={{
+                color: "#BD5B5B",
+                margin: "1rem",
+              }}
+            >
+              <h1>HOME</h1>
             </Link>
 
             <label>Name:</label>
@@ -70,14 +73,21 @@ const Register = (props) => {
             <button> Register</button>
 
             <p>
-              Have an account? <Link to="login"> Sign in</Link>
+              Have an account?
+              <Link
+                to="login"
+                style={{
+                  color: "#BD5B5B",
+                }}
+              >
+                {" "}
+                Sign in
+              </Link>
             </p>
           </form>
         </div>
 
-        {/* <div className="col">
-          <img src={registerImg} alt="register" />
-        </div> */}
+        <div className="col"></div>
       </div>
     </div>
   );

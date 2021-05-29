@@ -5,6 +5,7 @@ const initial_state = {
 const profile = (state = initial_state, action) => {
   switch (action.type) {
     case "PROFILE_LOADED":
+    case "GET_PROFILES":
       return {
         ...state,
         profile: action.payload,

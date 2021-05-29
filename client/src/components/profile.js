@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router";
 // images
 import Spinner from "./spinner";
-import defaultImg from "../img/defaultImg.jpg";
 //redux
 import { connect } from "react-redux";
 // actions
@@ -17,7 +16,7 @@ import {
 import Navbar from "./Navbar";
 import { UserLoaded } from "../actions/auth";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Profile = ({
@@ -65,11 +64,20 @@ const Profile = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ bio, facebook, linkedin, github });
-    await updateProfile({ bio, facebook, linkedin, github });
-    // toast("Profile updated");
-    // alert("");
-    await toggleModal(false);
+
+    const validURL = require("valid-url");
+
+    if (
+      (facebook && !validURL.isUri(facebook)) ||
+      (linkedin && !validURL.isUri(linkedin)) ||
+      (github && !validURL.isUri(github))
+    ) {
+      alert("Write valid URL");
+    } else {
+      console.log({ bio, facebook, linkedin, github });
+      await updateProfile({ bio, facebook, linkedin, github });
+      await toggleModal(false);
+    }
   };
 
   const handleUploadImg = async (e) => {
@@ -86,12 +94,7 @@ const Profile = ({
   if (!isLogged) {
     return <Redirect to="/login" />;
   }
-  // console.log(userProfile);
-  // console.log(user);
 
-  // if (modal) {
-  //   document.body.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-  // }
   return (
     <>
       <div>
@@ -143,42 +146,30 @@ const Profile = ({
 
                   <div className="profileData">
                     <h1>
-                      {user && user.username} {"  "}
+                      {user && user.username}
                       <i className="fas fa-grin-beam-sweat"></i>
                     </h1>
-                    {/* <h2>{user.email}</h2>
-                  <h3>{user.gender}</h3> */}
-                    <h4>
-                      {userProfile !== undefined &&
-                        userProfile.bio !== "" &&
-                        userProfile.bio}
-                    </h4>
+                    <h4>{userProfile.bio}</h4>
                     <span>
-                      {userProfile !== undefined &&
-                        userProfile.social !== undefined &&
-                        userProfile.social.facebook !== "" && (
-                          <a href={userProfile.social.facebook} target="blank">
-                            <i className="fab fa-facebook-square fa-lg"></i>
-                          </a>
-                        )}
+                      {userProfile.social && userProfile.social.facebook && (
+                        <a href={userProfile.social.facebook} target="blank">
+                          <i className="fab fa-facebook-square fa-lg"></i>
+                        </a>
+                      )}
                     </span>
                     <span>
-                      {userProfile !== undefined &&
-                        userProfile.social !== undefined &&
-                        userProfile.social.linkedin !== "" && (
-                          <a href={userProfile.social.linkedin} target="blank">
-                            <i className="fab fa-linkedin fa-lg"></i>
-                          </a>
-                        )}
+                      {userProfile.social && userProfile.social.linkedin && (
+                        <a href={userProfile.social.linkedin} target="blank">
+                          <i className="fab fa-linkedin fa-lg"></i>
+                        </a>
+                      )}
                     </span>
                     <span>
-                      {userProfile !== undefined &&
-                        userProfile.social !== undefined &&
-                        userProfile.social.github !== "" && (
-                          <a href={userProfile.social.github} target="blank">
-                            <i className="fab fa-github fa-lg"></i>
-                          </a>
-                        )}
+                      {userProfile.social && userProfile.social.github && (
+                        <a href={userProfile.social.github} target="blank">
+                          <i className="fab fa-github fa-lg"></i>
+                        </a>
+                      )}
                     </span>
                   </div>
                 </div>

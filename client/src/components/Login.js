@@ -25,34 +25,54 @@ const Login = (props) => {
   }
 
   return (
-    <div className="login">
-      <form onSubmit={handleSubmit}>
-        <Link to="/">
-          <h1>MANAR</h1>
-        </Link>
+    <div className="login p-5">
+      <div className="row">
+        <div className="col-12">
+          <form onSubmit={handleSubmit}>
+            <Link
+              to="/"
+              style={{
+                color: "#BD5B5B",
+                margin: "1rem",
+              }}
+            >
+              <h1>HOME</h1>
+            </Link>
 
-        <label>Email:</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+            <label>Email:</label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-        <label>Password:</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <label>Password:</label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-        <button> Log in</button>
+            <button> Log in</button>
 
-        <p>
-          Don't Have an account? <Link to="register"> Register</Link>
-        </p>
-      </form>
+            <p>
+              Don't Have an account?
+              <Link
+                to="register"
+                style={{
+                  color: "#BD5B5B",
+                }}
+              >
+                {" "}
+                Register
+              </Link>
+            </p>
+          </form>
+        </div>
+        <div className="col"></div>
+      </div>
     </div>
   );
 };

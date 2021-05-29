@@ -7469,28 +7469,24 @@ readers do not read off random characters that represent icons */
   margin: 0%;
   padding: 0%; }
 
-nav {
-  font-family: cursive;
-  position: fixed;
-  color: white;
-  font-size: 1.1rem; }
-  nav .logout {
-    background-color: #194350; }
-  nav .profile {
-    background-color: #194350; }
-  nav .home {
-    background-color: #194350; }
-  nav a {
-    display: block;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    color: white;
-    padding: 0.5rem;
-    border-bottom-right-radius: 0.3rem;
-    border-top-right-radius: 0.3rem;
-    background-color: #194350; }
-    nav a:hover {
-      opacity: 0.8; }
+.nav {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem; }
+  .nav nav {
+    font-family: cursive;
+    position: absolute; }
+    .nav nav a {
+      padding-top: 2rem;
+      text-decoration: none;
+      color: black;
+      margin-left: 6rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      text-shadow: black; }
+  .nav img {
+    width: 100%; }
 
 .profile {
   position: relative; }
@@ -7506,7 +7502,11 @@ nav {
 
 .register,
 .login {
-  width: 90%; }
+  background-image: url("../img/1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-family: cursive; }
   .register label,
   .register input,
   .register button,
@@ -7516,26 +7516,27 @@ nav {
   .login button,
   .login select {
     display: block;
-    padding: 0.3rem; }
-  .register label,
-  .login label {
-    font-family: cursive; }
+    padding: 0.3rem;
+    outline: none; }
+  .register .input,
+  .login .input {
+    border: 1rem solid black; }
   .register button,
   .login button {
-    margin-top: 2rem;
-    padding: 0.5rem;
-    border: none;
-    outline: none;
-    background-color: lightblue;
-    color: white;
+    background-color: #bd5b5b;
     font-family: cursive;
-    cursor: pointer; }
+    padding: 0.7rem;
+    text-align: center;
+    outline: none;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1rem; }
   .register form,
   .login form {
-    margin: 7rem; }
-  .register img,
-  .login img {
-    margin-left: 0%; }
+    margin: 8rem; }
 
 .profile {
   text-align: center; }
@@ -7629,6 +7630,7 @@ nav {
 .post {
   display: flex;
   margin: 1.5rem;
+  padding-bottom: 0.5rem;
   font-family: cursive;
   border-radius: 0.3rem;
   box-shadow: 0 0.07 0 0.07 #ccc;
