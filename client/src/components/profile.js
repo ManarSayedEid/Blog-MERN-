@@ -132,7 +132,7 @@ const Profile = ({
                       ) : (
                         <>
                           <img
-                            src={`https://gentle-ridge-09301.herokuapp.com/${user.image}`}
+                            src={`https://manarr.herokuapp.com/${user.image}`}
                             alt="User"
                           />
                         </>

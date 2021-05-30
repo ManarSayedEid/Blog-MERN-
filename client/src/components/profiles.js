@@ -23,7 +23,7 @@ const Profiles = ({ profile, getProfiles }) => {
               <div className="profileImg">
                 {profile.user && profile.user.image && (
                   <img
-                    src={`https://gentle-ridge-09301.herokuapp.com/${profile.user.image}`}
+                    src={`https://manarr.herokuapp.com/${profile.user.image}`}
                     alt="User"
                   />
                 )}

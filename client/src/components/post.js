@@ -29,7 +29,7 @@ const Post = ({ user, post: { post }, getPost, addComment, deleteComment }) => {
             </Link>
             <div className="post">
               <img
-                src={`https://gentle-ridge-09301.herokuapp.com/${post.user.image}`}
+                src={`https://manarr.herokuapp.com/${post.user.image}`}
                 alt="user"
               />{" "}
               <div>
@@ -44,7 +44,7 @@ const Post = ({ user, post: { post }, getPost, addComment, deleteComment }) => {
             {post.comments.map((comment) => (
               <div className="comment" key={comment._id}>
                 <img
-                  src={`https://gentle-ridge-09301.herokuapp.com/${comment.image}`}
+                  src={`https://manarr.herokuapp.com/${comment.image}`}
                   alt="user"
                 />
                 <div>
