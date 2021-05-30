@@ -1,0 +1,37 @@
+// @import 'abstracts/variables';
+// @import 'abstracts/functions';
+// @import 'abstracts/mixins';
+// @import 'abstracts/placeholders';
+
+@import "vendors/bootstrap";
+@import "vendors/fontawesome.scss";
+
+// @import 'vendors/jquery-ui';
+
+@import "base/reset";
+// @import 'base/typography';
+
+// @import 'layout/navigation';
+// @import 'layout/grid';
+// @import 'layout/header';
+// @import 'layout/footer';
+// @import 'layout/sidebar';
+
+// @import 'layout/forms';
+
+@import "components/navbar.scss";
+@import "components/modal";
+// @import 'components/cover';
+// @import 'components/dropdown';
+
+@import "pages/home";
+@import "pages/register";
+@import "pages/profile";
+@import "pages/post";
+
+// @import 'themes/theme';
+// @import 'themes/admin';
+
+body {
+  background-color: #c0c9d8;
+}
