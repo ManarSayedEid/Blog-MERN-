@@ -8,7 +8,7 @@ connectDB();
 
 app.use(express.json());
 
-app.use(express.static("public"));
+app.use(express.static("downloads"));
 
 app.use("/api/users", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
