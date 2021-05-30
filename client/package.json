@@ -20,11 +20,15 @@
     "redux-thunk": "^2.3.0",
     "web-vitals": "^1.1.1"
   },
+  "devDependencies": {
+    "node-sass": "^6.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "node-sass src/SASS/main.scss src/index.css -w"
   },
   "eslintConfig": {
     "extends": [
