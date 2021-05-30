@@ -24,7 +24,6 @@
     "config": "^3.3.6",
     "express": "^4.17.1",
     "express-validator": "^6.10.1",
-    "gravatar": "^1.8.1",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.6",
@@ -34,7 +33,6 @@
     "react-toastify": "^7.0.4",
     "redux-devtools-extension": "^2.13.9",
     "request": "^2.88.2",
-    "socket.io": "^4.1.2",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
