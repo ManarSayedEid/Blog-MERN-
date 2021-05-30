@@ -64,7 +64,7 @@ const Home = ({
                 <div className="post" key={post._id}>
                   {post.user.image ? (
                     <img
-                      src={`http://localhost:4000/${post.user.image}`}
+                      src={`https://gentle-ridge-09301.herokuapp.com/${post.user.image}`}
                       alt="user"
                     />
                   ) : (
