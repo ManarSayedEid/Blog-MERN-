@@ -1,0 +1,84 @@
+.profile {
+  text-align: center;
+  .profileImg {
+    img {
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+      padding: 1rem;
+    }
+  }
+  .profileData {
+    font-family: cursive;
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+    h4 {
+      font-family: "Courier New", Courier, monospace;
+      margin-bottom: 0.3rem;
+    }
+    span {
+      i {
+        height: 2rem;
+        width: 2rem;
+        margin: 0.2rem;
+      }
+    }
+  }
+  .ProfileManagement {
+    button {
+      background-color: rgb(189, 91, 91);
+      font-family: cursive;
+      padding: 0.6rem;
+      text-align: center;
+      outline: none;
+      border-radius: 0.5rem;
+      border: none;
+      margin: 1.5rem;
+      display: block;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+.modal {
+  .profileEdit {
+    display: block;
+    text-align: center;
+    margin: 7.5rem auto;
+    font-family: cursive;
+    border: 0.07rem solid #ccc;
+    border-radius: 3rem;
+    background-color: white;
+
+    .formGroup {
+      width: 50rem;
+      label {
+        padding: 1.6rem;
+      }
+      input {
+        border: 0;
+        padding: 1rem 0;
+        border-bottom: 0.07rem solid #ccc;
+        width: 30rem;
+        outline: none;
+      }
+    }
+
+    .modalManagement {
+      button {
+        background-color: rgb(189, 91, 91);
+        font-family: cursive;
+        padding: 0.6rem;
+        text-align: center;
+        outline: none;
+        border-radius: 0.5rem;
+        border: none;
+        margin: 1rem;
+        color: white;
+        cursor: pointer;
+        margin-top: 2rem;
+      }
+    }
+  }
+}
