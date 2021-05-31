@@ -2924,12 +2924,6 @@
 .profile {
   position: relative; }
 
-.modal {
-  position: fixed;
-  margin: 0px auto;
-  top: 6rem;
-  left: 6rem; }
-
 .hidden {
   display: none; }
 
@@ -3003,21 +2997,19 @@
     cursor: pointer; }
 
 .modal .profileEdit {
-  margin: auto;
-  font-family: cursive;
+  width: max-content;
   border: 0.07rem solid #ccc;
   border-radius: 3rem;
-  background-color: white; }
-  .modal .profileEdit .formGroup {
-    width: 40rem; }
-    .modal .profileEdit .formGroup label {
-      padding: 1.6rem; }
-    .modal .profileEdit .formGroup input {
-      border: 0;
-      padding: 1rem 0;
-      border-bottom: 0.07rem solid #ccc;
-      width: 30rem;
-      outline: none; }
+  background-color: white;
+  padding: 1.5rem; }
+  .modal .profileEdit .formGroup label {
+    padding: 1.6rem; }
+  .modal .profileEdit .formGroup input {
+    border: 0;
+    padding: 1rem 0;
+    border-bottom: 0.07rem solid #ccc;
+    width: 20rem;
+    outline: none; }
   .modal .profileEdit .modalManagement button {
     background-color: #bd5b5b;
     font-family: cursive;
