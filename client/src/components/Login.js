@@ -70,7 +70,7 @@ const Login = (props) => {
             </p>
           </form>
         </div>
-        <div className="col"></div>
+        <div className="col m-5"></div>
       </div>
     </div>
   );

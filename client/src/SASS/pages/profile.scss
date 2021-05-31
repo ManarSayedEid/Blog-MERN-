@@ -43,16 +43,14 @@
 }
 .modal {
   .profileEdit {
-    display: block;
-    text-align: center;
-    margin: 7.5rem auto;
+    margin: auto;
     font-family: cursive;
     border: 0.07rem solid #ccc;
     border-radius: 3rem;
     background-color: white;
 
     .formGroup {
-      width: 50rem;
+      width: 40rem;
       label {
         padding: 1.6rem;
       }
