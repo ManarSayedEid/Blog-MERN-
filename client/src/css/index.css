@@ -3099,10 +3099,10 @@
 .comment {
   display: flex;
   margin: 1.5rem;
-  font-family: cursive;
   border-radius: 0.3rem;
   box-shadow: 0 1 0 1 #ccc;
-  background-color: white; }
+  background-color: white;
+  font-family: "Times New Roman", Times, serif; }
   .comment img {
     width: 5rem;
     height: 5rem;
